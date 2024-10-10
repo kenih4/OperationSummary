@@ -299,11 +299,8 @@ def check_operation_mode(gunlist,flg):
 
 #日時を指定してGUNのOFF/ON時間の出力する
 def output_excel_gun_hvoff_time():
-    bl_num = input("加速器を選択してください。  1:SCSS  デフォルト:SACLA >>>")
-    if bl_num =="": 
-        bl_num = 5
-#    print("bl_num:",bl_num)
-
+    bl_num = input("加速器を選択してください。  1:SCSS, Other:SACLA >>>")
+      
     val = input("開始日時を入力してください。　(例)2021/11/1 10:00 >>>")
     try:
         dt_beg = datetime.datetime.strptime(val, "%Y/%m/%d %H:%M")
@@ -322,16 +319,13 @@ def output_excel_gun_hvoff_time():
     if int(bl_num) == 1:
         write_excel_planned_time_bl(1, dt_beg, dt_end)
     else: 
-        flg = 1
-        """
-        val = input("DEBUG: 計画時間をDBから読み込みますか　yes(y) or no(n)　>>>")
+        val = input("計画時間をDBから読み込みますか　yes(y) or no(n)　>>>")
         if val == "yes" or val == "y":
             print("計画時間をDBから読み込みます")
             flg = 1
         else:
             print("計画時間をBL集計ファイルから読み込みます") 
             flg = 0
-        """
         schedule.output_excel_planned_time(dt_beg, dt_end)
         gun_list = get_gun_status_long_time(dt_beg, dt_end)
         gun_list = check_operation_mode(gun_list, flg)
@@ -344,20 +338,20 @@ def output_excel_gun_hvoff_time():
 # In[11]:
 
 
-#  start_time = datetime.datetime(2022, 6, 13, 10, 0)
-#  end_time = datetime.datetime(2022, 6, 27, 22, 0)
+# start_time = datetime.datetime(2022, 6, 13, 10, 0)
+# end_time = datetime.datetime(2022, 6, 27, 22, 0)
 
-#  libCom.print_list(get_gun_status_long_time(start_time, end_time))
+# libCom.print_list(get_gun_status_long_time(start_time, end_time))
 
 
-#  ret = output_excel_gun_hvoff_time()
-#  if ret == 0:
-#      print("正常終了しました")
-#      EXCEL = r"C:\Users\hasegawa-t\Desktop\OperationSummary\計画時間.xlsx"
-#      subprocess.Popen(['start', EXCEL], shell=True)
-#  else:
-#      print("異常終了しました")
-#  time.sleep(60)
+# ret = output_excel_gun_hvoff_time()
+# if ret == 0:
+#     print("正常終了しました")
+#     EXCEL = r"C:\Users\kokubu\Documents\python\OperationSummary\計画時間.xlsx"
+#     subprocess.Popen(['start', EXCEL], shell=True)
+# else:
+#     print("異常終了しました")
+# time.sleep(60)
 
 
 # In[ ]:

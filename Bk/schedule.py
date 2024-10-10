@@ -30,9 +30,7 @@ from operator import itemgetter
 
 
 #グローバル変数
-#計画時間ファイル = r"C:\Users\kenichi\Documents\OperationSummary\Modified\計画時間_Modified.xlsm" #ファイルが破損する
-#計画時間ファイル = r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsm" #ファイルが破損する
-計画時間ファイル = r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsx" #MOTO
+計画時間ファイル = r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsx"
 BL1集計ファイル = r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\SCSS\SCSS運転状況集計BL1.xlsm"
 SCSS集計ファイル = r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\SCSS\SCSS運転集計記録.xlsm"
 BL2集計ファイル = r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\SACLA\SACLA運転状況集計BL2.xlsm"
@@ -234,7 +232,7 @@ def write_excel_planned_time_sheet(list, sheet_name):
     wb.save(計画時間ファイル)
 
 
-# In[9]:
+# In[ ]:
 
 
 def auto_sheet_width(ws):
@@ -262,7 +260,7 @@ def get_east_asian_width_count(text):
     return count
 
 
-# In[10]:
+# In[9]:
 
 
 #BL2とBL3を計画時間EXCELに計画時間を書き込む
@@ -271,7 +269,7 @@ def output_excel_planned_time(dt_beg, dt_end):
     write_excel_planned_time_bl(3, dt_beg, dt_end)
 
 
-# In[11]:
+# In[10]:
 
 
 #計画時間EXCELからBLのスケジュールを取得し、時間をdatetimeへ変換する
@@ -300,8 +298,7 @@ def read_xcel_bl_operation_time(sheet_name):
     return bl_list
 
 
-
-# In[12]:
+# In[11]:
 
 
 #日時を指定して計画時間のEXCELにスケジュールを出力する
@@ -336,13 +333,13 @@ def output_excel_schedule_time():
     return 0
 
 
-# In[13]:
+# In[12]:
 
 
 #*************************BL集計ファイルのEXCELから読み込む*************************
 
 
-# In[14]:
+# In[13]:
 
 
 #BL集計記録のEXCELからBLのスケジュールを読み込む
@@ -376,7 +373,7 @@ def read_xcel_bl_operation_time_2(bl_num):
     return bl_list
 
 
-# In[15]:
+# In[14]:
 
 
 #EXCELからシートの集計記録を読み込む
@@ -407,13 +404,13 @@ def read_xcel_fault_time(acc, sheet):#acc 1:SCSS, Other:SACLA
     return list
 
 
-# In[16]:
+# In[15]:
 
 
 #*************************開始時間・終了時間のdictのリストの操作*************************
 
 
-# In[17]:
+# In[16]:
 
 
 #開始時間が時間範囲内を抽出したリストを返す
@@ -437,7 +434,7 @@ def get_list_period_time(list, dt_beg, dt_end):
     return list_tmp
 
 
-# In[18]:
+# In[17]:
 
 
 #listの指定したkeyのformat形式の時間文字列をdatetimeに変換する
@@ -447,7 +444,7 @@ def list_key_strptime(list, key, format):
     return list
 
 
-# In[19]:
+# In[18]:
 
 
 #辞書型のリストから指定したkeyと一致（一致 flg = 0, 不一致　flg = 0以外）するリストを返す
@@ -465,7 +462,7 @@ def extract_list_specified_key(list, key, find_value, flg):
     return list_tmp
 
 
-# In[20]:
+# In[19]:
 
 
 #期間を指定した日数毎に区切ったList取得する。
@@ -498,7 +495,8 @@ def get_days_period_list(start_time, end_time, days_period):
 
 
 
-# In[21]:
+# In[ ]:
+
 
 
 # ret = output_excel_schedule_time()

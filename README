@@ -1,0 +1,38 @@
+
+
+やり方：
+python getGunHvOffTime_LOCALTEST.py
+    を実行すると\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsxを基に計画時間.xlsxを作成している
+    計画時間.xlsxのリボンの新しい・・・でマクロcp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()を実行する
+
+python getBlFaultSummary_LOCALTEST.py
+    blを聞いてくるのでbl3などとする
+
+
+2024/9/17 10:00
+2024/10/1 10:00
+
+
+
+
+=============================================================================================
+.pycファイルだけ生成
+python -m compileall example.py
+
+=============================================================================================
+ipynbからpyに変換する方法は
+Powershellのターミナルで、
+(base) PS C:\Users\kenichi\Documents\OperationSummary> jupyter nbconvert --to python BlFaultSummary.ipynb
+[NbConvertApp] Converting notebook BlFaultSummary.ipynb to python
+[NbConvertApp] Writing 8891 bytes to BlFaultSummary.py
+
+Bashターミナルで、バックアップとのDiffをとると、バックアップのはBLの選択部分がコメントアウトされてるだけだったのでOK
+$ vimdiff Bk/BlFaultSummary.py BlFaultSummary.py
+
+＜ipynbからpyに変換済のも＞
+GunHvOff.py
+schedule.py
+BlFaultSummary.py
+
+
+
