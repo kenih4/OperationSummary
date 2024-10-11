@@ -86,12 +86,28 @@ def get_list_bl_select(list, bl_name):
 
 #ユニットのリストをBL集計用の形式でtxtに出力する    
 def output_log_txt(list):
-    txt = 'fault.txt'    
+    txt = 'fault.txt'
     with open(txt,'w') as f:
         for i in range(len(list)):
             f.write( "\t".join(list[i]) + "\n")
     subprocess.Popen(['start', txt], shell=True)
 
+#ユニットのリストをBL集計用の形式でtxtに出力する  「時間指定する」
+def output_log_txt_Time_Specification(list,dt_beg,dt_end):
+    import pyperclip
+    txt = 'fault.txt'
+    txt_clibbord = ''
+    with open(txt,'w', encoding='utf-8') as f:  #なぜか、if dt > dt_beg　の条件をいれると文字化けするので encoding='utf-8'と指定した
+        for i in range(len(list)):
+            dt = datetime.datetime.strptime(list[i][2], '%Y/%m/%d %H:%M:%S')
+            if dt > dt_beg and dt < dt_end:
+                f.write( "\t".join(list[i]) + "\n")
+                txt_clibbord += "\t".join(list[i]) + "\n"
+    if txt_clibbord == '':
+        print("txt_clibbordが空っぽです。次ぎ進んでもしょうがないのでここで終了します。")
+        sys.exit()
+    pyperclip.copy(txt_clibbord)
+#    subprocess.Popen(['start', txt], shell=True)
 
 # In[5]:
 
@@ -285,11 +301,11 @@ def get_unit_list(bl_name, fault_list):
     unit_fault_list = []
     
     user_shift_time_list = get_user_shift_time_list(int(re.sub(r"\D", "", bl_name)))
-    
-    
+
     for i in range(len(user_shift_time_list)):
         tmp, tmp1 = get_shift_list(fault_list, user_shift_time_list[i][0], user_shift_time_list[i][1], bl_name)
         unit_fault_list.extend(tmp)
+
     return unit_fault_list
 
     
