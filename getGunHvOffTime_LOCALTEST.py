@@ -21,11 +21,19 @@ import schedule
 import GunHvOff
 
 
+
+
+
+
 ret = GunHvOff.output_excel_gun_hvoff_time()
 if ret == 0:
-    print("正常終了しました")
-    print("マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」を実行する")
-    subprocess.Popen(['start', r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm"], shell=True) #マクロが入ってるエクセルファイルを開く
+#    print("正常終了しました")
+    
+    if abs(time.time() - os.path.getmtime(schedule.計画時間ファイル))<10:
+        print("正常終了:マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」を実行する")
+        subprocess.Popen(['start', r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm"], shell=True) #マクロが入ってるエクセルファイルを開く
+    else:
+        print(f"異常：作成されたはずの計画時間.xlsxのタイムスタンプが古いです。 最終更新時刻: {datetime.datetime.fromtimestamp(os.path.getmtime(schedule.計画時間ファイル))}")
 
     #print("schedule.計画時間ファイル:",schedule.計画時間ファイル)
     #EXCEL = schedule.計画時間ファイル
