@@ -299,25 +299,41 @@ def check_operation_mode(gunlist,flg):
 
 #日時を指定してGUNのOFF/ON時間の出力する
 def output_excel_gun_hvoff_time():
-    bl_num = input("加速器を選択してください。  1:SCSS  デフォルト:SACLA >>>")
+    bl_num = input("加速器を選択してください。  1:SCSS  デフォルトはSACLA >>>")
     if bl_num =="": 
-        bl_num = 5
+        bl_num = 2 #　1以外ならなんでもSACLA
 #    print("bl_num:",bl_num)
-
-    val = input("開始日時を入力してください。　(例)2021/11/1 10:00 >>>")
-    try:
-        dt_beg = datetime.datetime.strptime(val, "%Y/%m/%d %H:%M")
-    except ValueError:
-        print ("エラー：日時のフォーマットが正しくありません。")
-        return -1
-
-    val = input("終了日時を入力してください　(例)2021/11/15 10:00 >>>")
-    try:
-        dt_end = datetime.datetime.strptime(val, "%Y/%m/%d %H:%M")
-    except ValueError:
-        print ("エラー：日時のフォーマットが正しくありません。")
-        return -1
     
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    with open("dt_beg.txt", mode='r', encoding="UTF-8") as f:
+        buff_dt_beg = f.read()
+    val = input("開始日時を入力してください。　(例)2021/11/1 10:00  デフォルトは" + str(buff_dt_beg) + "    >>>")
+    if not val:
+        print("空")
+        dt_beg = datetime.datetime.strptime(buff_dt_beg, "%Y/%m/%d %H:%M")
+    else:
+        try:
+            dt_beg = datetime.datetime.strptime(val, "%Y/%m/%d %H:%M")
+            with open("dt_beg.txt","w") as o:
+                o.write(val)
+        except ValueError:
+            print ("エラー：日時のフォーマットが正しくありません。")
+            sys.exit()
+
+    dt_end = dt_beg +  datetime.timedelta(days=14)
+    val = input("終了日時を入力してください　(例)2021/11/15 10:00   デフォルトは2週間後「" + str(dt_end) + "」です。    >>>")
+    if val:
+        try:
+            dt_end = datetime.datetime.strptime(val, "%Y/%m/%d %H:%M")
+        except ValueError:
+            print ("エラー：日時のフォーマットが正しくありません。")
+            sys.exit()
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        
+        
+
     
     if int(bl_num) == 1:
         write_excel_planned_time_bl(1, dt_beg, dt_end)

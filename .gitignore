@@ -4,4 +4,5 @@ _SCSS_計画時間 .xlsx
 *.docx
 log*
 *.txt
+dt_beg.txt
 

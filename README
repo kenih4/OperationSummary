@@ -3,10 +3,10 @@
 やり方：
 python getGunHvOffTime_LOCALTEST.py
     を実行すると\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsxを基に計画時間.xlsxを作成している
-    計画時間.xlsxのリボンの新しい・・・でマクロcp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()を実行する
+    マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」を実行する
 
 python getBlFaultSummary_LOCALTEST.py
-    blを聞いてくるのでbl3などとする
+    マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_fault_」を実行する
 
 
 2024/9/17 10:00

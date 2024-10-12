@@ -24,12 +24,12 @@ import GunHvOff
 ret = GunHvOff.output_excel_gun_hvoff_time()
 if ret == 0:
     print("正常終了しました")
-
+    print("マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」を実行する")
     subprocess.Popen(['start', r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm"], shell=True) #マクロが入ってるエクセルファイルを開く
 
-    print("schedule.計画時間ファイル:",schedule.計画時間ファイル)
-    EXCEL = schedule.計画時間ファイル
-    subprocess.Popen(['start', EXCEL], shell=True)
+    #print("schedule.計画時間ファイル:",schedule.計画時間ファイル)
+    #EXCEL = schedule.計画時間ファイル
+    #subprocess.Popen(['start', EXCEL], shell=True)
 else:
     print("異常終了しました")
 time.sleep(60)
