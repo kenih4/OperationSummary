@@ -320,7 +320,7 @@ def output_excel_gun_hvoff_time():
             print ("エラー：日時のフォーマットが正しくありません。")
             sys.exit()
 
-    dt_end = dt_beg +  datetime.timedelta(days=10)  #(days=14)
+    dt_end = dt_beg +  datetime.timedelta(days=14)
     val = input("終了日時を入力してください。　(例)2021/11/15 10:00   デフォルトは2週間後「" + str(dt_end) + "」です。    >>>")
     if val:
         try:

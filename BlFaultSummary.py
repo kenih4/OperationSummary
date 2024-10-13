@@ -286,7 +286,7 @@ def get_user_shift_time_list(bl_num):
     #計画時間のユーザー時間のみのリストを取得
     user_list = schedule.read_xcel_bl_operation_time_2(bl_num)
     user_list = schedule.extract_list_specified_key(user_list, '運転種別', 'ユーザー', 0)
-    
+
     for i in range(len(user_list)):        
         user_shift_time_list.extend(get_user_period_time_list(user_list[i]["start"], user_list[i]["end"]))
     
@@ -301,11 +301,10 @@ def get_unit_list(bl_name, fault_list):
     unit_fault_list = []
     
     user_shift_time_list = get_user_shift_time_list(int(re.sub(r"\D", "", bl_name)))
-
+    
     for i in range(len(user_shift_time_list)):
         tmp, tmp1 = get_shift_list(fault_list, user_shift_time_list[i][0], user_shift_time_list[i][1], bl_name)
         unit_fault_list.extend(tmp)
-
     return unit_fault_list
 
     

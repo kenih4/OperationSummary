@@ -20,7 +20,7 @@ else:
     
 fault_list = BlFaultSummary.get_fault_list(acc)
 list = BlFaultSummary.get_unit_list(bl,fault_list)
-libCom.print_list(list)
+#libCom.print_list(list)
 #BlFaultSummary.output_log_txt(list)    #MOTO 　時間指定なし
 
 
@@ -40,7 +40,7 @@ else:
         print ("エラー：日時のフォーマットが正しくありません。")
         sys.exit()
 
-dt_end = dt_beg +  datetime.timedelta(days=10)#(days=14)
+dt_end = dt_beg +  datetime.timedelta(days=14)
 val = input("終了日時を入力してください。　(例)2021/11/15 10:00   デフォルトは2週間後「" + str(dt_end) + "」です。    >>>")
 if val:
     try:
