@@ -135,7 +135,9 @@ def get_user_list(bl_num):
         title = list_schedules[i]['title']
         if bl_num == 0:
             dict = {"運転種別":"施設調整", "start":list_schedules[i]['start'],"end":list_schedules[i]['end'],"備考":title}
-            user_list.append(dict)    
+            user_list.append(dict)
+        elif ("BL-study" in title or "BL study" in title):
+            pass
         elif "FCBT" in title or "G" in title:
             if "FCBT" in title:
                 user = "FCBT"

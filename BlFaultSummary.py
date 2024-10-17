@@ -104,7 +104,7 @@ def output_log_txt_Time_Specification(list,dt_beg,dt_end):
                 f.write( "\t".join(list[i]) + "\n")
                 txt_clibbord += "\t".join(list[i]) + "\n"
     if txt_clibbord == '':
-        print("txt_clibbordが空っぽです。次ぎ進んでもしょうがないのでここで終了します。")
+        print("txt_clibbordが空っぽです。前のステップで、SACLA運転状況集計BL*.xlsmを保存していない可能性があります。次ぎ進んでもしょうがないのでここで終了します。")
         sys.exit()
     pyperclip.copy(txt_clibbord)
 #    subprocess.Popen(['start', txt], shell=True)

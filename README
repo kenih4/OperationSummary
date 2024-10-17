@@ -1,5 +1,15 @@
 
 
+
+やる前の注意点：
+・利用が早く終わった場合
+・BL Study注意
+    getGunHvOffTime_LOCALTEST.pyを実行するとGを含む予定がユーザー運転になってしまうので対策
+    例：2024-10-01の計画時間.xlsxに混入  BL-study 10keV(Seed)/30Hz（大坂、2色対応中分解能スペクトロメータおよびGe CCMの試験）
+    例：2024-10-02の計画時間.xlsxに混入  BL-study 10keV/30Hz（富樫、FROG）
+    schedule.pyの「elif "FCBT" in title or "G" in title」の部分が問題だったので、
+                    elif ("BL-study" in title or "BL study" in title): を追加
+
 やり方：
 1.  python getGunHvOffTime_LOCALTEST.py
     を実行すると\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsxを基に計画時間.xlsxを作成している
@@ -11,9 +21,11 @@
 3.  SACLA運転状況集計BL*.xlsmの利用時間(User)シートにエネルギーなどを手動入力
     http://saclaopr19.spring8.or.jp/~summary/display_ui.html?sort=date%20desc%2Cstart%20desc&limit=0%2C1000&search_root=BL3#STATUS
 
-3.  リボンから「Fault集計」を実行
+3.  SACLA運転状況集計BL*.xlsmから「Fault集計m」を実行
+        現状七面倒臭いが、マクロを移植する必要あり
 
-4.  リボンから「運転集計_形式処理」を実行
+4.  SACLA運転状況集計BL*.xlsmから「運転集計_形式処理m」を実行
+        現状七面倒臭いが、マクロを移植する必要あり
 
 
 
