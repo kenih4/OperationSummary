@@ -7,3 +7,4 @@ log*
 dt_beg.txt
 *利用時間のtmp.xlsx
 Diff/
+__pycache__/
