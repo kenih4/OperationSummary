@@ -268,11 +268,18 @@ def merge_periods_list(list):
 
 
 def get_shift_list(fault_list, start_time, end_time, bl_name):
+#    print(fault_list) #{'運転種別': '停止時間', 'BL': 'ALL', 'start': datetime.datetime(2024, 7, 9, 20, 45, 39), 'end': datetime.datetime(2024, 7, 9, 20, 46, 21), '調整理由': '', 'total': '=IF(B1725="","",C1725-B1725)', None: None}
     period_list = schedule.get_list_period_time(fault_list,  start_time, end_time) #期間を抽出したリストを返す
+#    print(period_list) #{'運転種別': '停止時間', 'BL': 'ALL', 'start': datetime.datetime(2024, 10, 10, 9, 52), 'end': datetime.datetime(2024, 10, 10, 9, 52, 42), '調整理由': '', 'total': '=IF(B2538="","",C2538-B2538)', None: None}
     bl_list = get_list_bl_select(period_list, bl_name) #対象のBLの時間を抽出したリストを返す        
+#    print(bl_list) #{'運転種別': '停止時間', 'BL': 'ALL', 'start': datetime.datetime(2024, 10, 10, 6, 33, 5), 'end': datetime.datetime(2024, 10, 10, 6, 33, 25), '調整理由': '', 'total': '=IF(B2535="","",C2535-B2535)', None: None}
     merge_list = merge_periods_list(bl_list) #重複時間を削除したリストを返す。
+#    print(merge_list) # {'運転種別': '', 'BL': '', 'start': datetime.datetime(2024, 10, 10, 6, 20, 4), 'end': datetime.datetime(2024, 10, 10, 6, 20, 27), '調整理由': []}
     edit_fault_list = edit_fault_list_time(merge_list, start_time, end_time)
+#    print(edit_fault_list) #チョッパーOFFなどの時間 {'運転種別': '', 'BL': '', 'start': datetime.datetime(2024, 10, 9, 10, 53, 10), 'end': datetime.datetime(2024, 10, 9, 10, 53, 34), '調整理由': []}
     output_list,shift_list = output_bl_fault_List(edit_fault_list, start_time, end_time) #リストを出力用の形式に変換   
+#    print(output_list) #チョッパーOFFなどの時間
+#    print(shift_list)  #スケジュール
     return output_list,shift_list
 
 
@@ -286,10 +293,10 @@ def get_user_shift_time_list(bl_num):
     #計画時間のユーザー時間のみのリストを取得
     user_list = schedule.read_xcel_bl_operation_time_2(bl_num)
     user_list = schedule.extract_list_specified_key(user_list, '運転種別', 'ユーザー', 0)
-
-    for i in range(len(user_list)):        
+#    print(user_list) # カレンダー　{'運転種別': 'ユーザー', 'start': datetime.datetime(2024, 10, 4, 22, 0), 'end': datetime.datetime(2024, 10, 7, 10, 0)}
+    for i in range(len(user_list)):
         user_shift_time_list.extend(get_user_period_time_list(user_list[i]["start"], user_list[i]["end"]))
-    
+#    print(user_shift_time_list)# カレンダー
     return user_shift_time_list
     
 
@@ -301,7 +308,7 @@ def get_unit_list(bl_name, fault_list):
     unit_fault_list = []
     
     user_shift_time_list = get_user_shift_time_list(int(re.sub(r"\D", "", bl_name)))
-    
+#    print(user_shift_time_list) # [datetime.datetime(2024, 10, 5, 22, 0), datetime.datetime(2024, 10, 6, 10, 0)]
     for i in range(len(user_shift_time_list)):
         tmp, tmp1 = get_shift_list(fault_list, user_shift_time_list[i][0], user_shift_time_list[i][1], bl_name)
         unit_fault_list.extend(tmp)
@@ -316,7 +323,6 @@ def get_unit_list(bl_name, fault_list):
 #Fault listのトリップ時間を開始時間と終了時間で区切る。(期間内抽出、重複処理後に使用する)
 def edit_fault_list_time(fault_list, start_time, end_time):
     fault_list_bk =  copy.copy(fault_list)  
-      
     for i in range(len(fault_list_bk)):
         if (start_time <= fault_list_bk[i]["end"]) and (end_time >= fault_list_bk[i]["start"]):#期間内判定
             if start_time > fault_list_bk[i]["start"]:

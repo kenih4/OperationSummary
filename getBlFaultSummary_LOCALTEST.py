@@ -17,8 +17,8 @@ if bl == "bl1":
     acc = 1
 else:
     acc = 0
-    
-fault_list = BlFaultSummary.get_fault_list(acc)
+
+fault_list = BlFaultSummary.get_fault_list(acc) #   SACLA運転集計記録.xlsmからシートの集計記録を読み込む
 list = BlFaultSummary.get_unit_list(bl,fault_list)
 #libCom.print_list(list)
 #BlFaultSummary.output_log_txt(list)    #MOTO 　時間指定なし

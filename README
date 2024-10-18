@@ -1,7 +1,15 @@
 
 
+！！！！！！！！！要確認
+BL2の利用調整運転のダウンタイム	がなぜか長谷川出力と異なる
+紛れ込んでいたBL-study 10keV/30Hz（富樫、FROG）を手動で省くなどしためか？
+！！！！！！！！！！！！！！！！！！！！！！！！！！
 
-やる前の注意点：
+
+
+
+
+やる前の注意点：長谷川さんに要確認
 ・利用が早く終わった場合
 ・BL Study注意
     getGunHvOffTime_LOCALTEST.pyを実行するとGを含む予定がユーザー運転になってしまうので対策
@@ -10,21 +18,31 @@
     schedule.pyの「elif "FCBT" in title or "G" in title」の部分が問題だったので、
                     elif ("BL-study" in title or "BL study" in title): を追加
 
+
+
 やり方：
+0:  BL2 or BL3が先に終了した場合など、SACLA運転集計記録.xlsmのシート「停止時間」のBL列にあらかじめ入力する
+
 1.  python getGunHvOffTime_LOCALTEST.py
     を実行すると\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsxを基に計画時間.xlsxを作成している
+    ※もし、修正する場合は先に計画時間.xlsxを直して、セーブしてから次に進む。次の2番でこのファイルを見ているため。
+
     マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」を実行する
+    どっちからでもいいが、BL3からして、
+    続いて、またマクロでBL2もする
 
 2.  python getBlFaultSummary_LOCALTEST.py
     マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_faulttxt_UNTENZYOKYOSYUKEI()」を実行する
 
-3.  SACLA運転状況集計BL*.xlsmの利用時間(User)シートにエネルギーなどを手動入力
-    http://saclaopr19.spring8.or.jp/~summary/display_ui.html?sort=date%20desc%2Cstart%20desc&limit=0%2C1000&search_root=BL3#STATUS
+    希望python getBlFaultSummary_LOCALTEST.pyでBL3をしたらマクロでBL3になるようにしたい
 
-3.  SACLA運転状況集計BL*.xlsmから「Fault集計m」を実行
+3.  SACLA運転状況集計BL*.xlsmの利用時間(User)シートにエネルギーなどを手動入力
+    http://saclaopr19.spring8.or.jp/~summary/display_ui.html?sort=date%20desc%2Cstart%20desc&limit=0%2C100&search_situation=ユーザー運転&&search_root=BL3#STATUS
+
+4.  SACLA運転状況集計BL*.xlsmから「Fault集計m」を実行
         現状七面倒臭いが、マクロを移植する必要あり
 
-4.  SACLA運転状況集計BL*.xlsmから「運転集計_形式処理m」を実行
+5.  SACLA運転状況集計BL*.xlsmから「運転集計_形式処理m」を実行
         現状七面倒臭いが、マクロを移植する必要あり
 
 

@@ -403,7 +403,7 @@ def read_xcel_fault_time(acc, sheet):#acc 1:SCSS, Other:SACLA
             row_dic[k.value] = v.value
         if row_dic["start"] != None:
             if row_dic["BL"] != "BL2" and row_dic["BL"] != "BL3":
-                row_dic["BL"] = "ALL"            
+                row_dic["BL"] = "ALL"
             list.append(row_dic)
         
     return list
