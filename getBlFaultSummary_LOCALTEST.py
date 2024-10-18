@@ -9,6 +9,8 @@ import sys
 import os
 
 
+
+
 bl = input(">BLを選択してください。(bl1,bl2,bl3) デフォルト bl3 >>> ")
 if bl=="":
     bl="bl3"
@@ -51,10 +53,29 @@ if val:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 BlFaultSummary.output_log_txt_Time_Specification(list,dt_beg,dt_end)
 
-input("いろいろマクロ.xlsmを開くのでリボンからcp_paste_faulttxt_UNTENZYOKYOSYUKEI()をして下さい。")
+input("正常終了:マクロいろいろ.xlsmが立ち上がるので、マクロ「cp_paste_faulttxt_UNTENZYOKYOSYUKEI()」が実行されます")
+import win32com.client                                          #Win32comモジュールを呼び出す
+try:
+    excelapp = win32com.client.Dispatch('Excel.Application')        #Excelアプリケーションを起動する
+    excelapp.Visible = 1                                            #Excelウインドウを表示する
+    excelapp.Workbooks.Open(r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
+    excelapp.Application.Run('Module3.cp_paste_faulttxt_UNTENZYOKYOSYUKEI')                       #標準モジュールModule1のマクロtest1を実行する
+    excelapp.Workbooks(1).Close(SaveChanges=False)                  
+    excelapp.Application.Quit()                                     #Excelを閉じる
+finally:
+    excelapp.Application.Quit()  
 
-import subprocess
-subprocess.Popen(['start', r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm"], shell=True) #マクロが入ってるエクセルファイルを開く
+
+
+
+
+
+
+
+
+#import subprocess
+#subprocess.Popen(['start', r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm"], shell=True) #マクロが入ってるエクセルファイルを開く
+
 # いろいろマクロ.xlsmのマクロから開くので以下はコメントアウトした
 #import schedule
 #if bl == "bl1":
@@ -65,4 +86,4 @@ subprocess.Popen(['start', r"C:\Users\kenichi\Documents\OperationSummary\マク�
 #    EXCEL = schedule.BL3集計ファイル
 #else:
 #    print("ERR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-#subprocess.Popen(['start', EXCEL], shell=True)  
+#subprocess.Popen(['start', EXCEL], shell=True)
