@@ -1,22 +1,6 @@
 
-
-！！！！！！！！！要確認
-BL2の利用調整運転のダウンタイム	がなぜか長谷川出力と異なる
-紛れ込んでいたBL-study 10keV/30Hz（富樫、FROG）を手動で省くなどしためか？
-！！！！！！！！！！！！！！！！！！！！！！！！！！
-
-
-
-
-
-やる前の注意点：長谷川さんに要確認
-・利用が早く終わった場合
-・BL Study注意
-    getGunHvOffTime_LOCALTEST.pyを実行するとGを含む予定がユーザー運転になってしまうので対策
-    例：2024-10-01の計画時間.xlsxに混入  BL-study 10keV(Seed)/30Hz（大坂、2色対応中分解能スペクトロメータおよびGe CCMの試験）
-    例：2024-10-02の計画時間.xlsxに混入  BL-study 10keV/30Hz（富樫、FROG）
-    schedule.pyの「elif "FCBT" in title or "G" in title」の部分が問題だったので、
-                    elif ("BL-study" in title or "BL study" in title): を追加
+    
+    メモ：「Ctrl」+「Shift」+「V」は、データを書式なしのシンプルなテキストとして貼り付けるショートカットキーです
 
 
 
@@ -38,6 +22,8 @@ BL2の利用調整運転のダウンタイム	がなぜか長谷川出力と異�
 
 3.  SACLA運転状況集計BL*.xlsmの利用時間(User)シートにエネルギーなどを手動入力
     http://saclaopr19.spring8.or.jp/~summary/display_ui.html?sort=date%20desc%2Cstart%20desc&limit=0%2C100&search_situation=ユーザー運転&&search_root=BL3#STATUS
+    シフトサマリーの検索くせがある
+    一旦、クエリをクリアしてBL3を選択
 
 4.  SACLA運転状況集計BL*.xlsmから「Fault集計m」を実行
         現状七面倒臭いが、マクロを移植する必要あり
@@ -45,11 +31,20 @@ BL2の利用調整運転のダウンタイム	がなぜか長谷川出力と異�
 5.  SACLA運転状況集計BL*.xlsmから「運転集計_形式処理m」を実行
         現状七面倒臭いが、マクロを移植する必要あり
 
+6.  SACLA運転状況集計まとめ.xlsm で結合
+    マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「Sub Merge_MATOME_BL2andBL3()」を実行する
+
+7.  SACLA運転状況集計まとめ.xlsm のまとめシートに手動でコピー
+
+8.  改行を適当な箇所に
+
+
 
 
 2024/9/17 10:00
 2024/9/30 10:00
-
+2024/10/14 10:00
+2024/10/28 10:00
 
 
 
@@ -73,4 +68,13 @@ schedule.py
 BlFaultSummary.py
 
 
+
+MEMO===============================================================
+
+・BL Study注意
+    getGunHvOffTime_LOCALTEST.pyを実行するとGを含む予定がユーザー運転になってしまうので対策した
+    例：2024-10-01の計画時間.xlsxに混入  BL-study 10keV(Seed)/30Hz（大坂、2色対応中分解能スペクトロメータおよびGe CCMの試験）
+    例：2024-10-02の計画時間.xlsxに混入  BL-study 10keV/30Hz（富樫、FROG）
+    schedule.pyの「elif "FCBT" in title or "G" in title」の部分が問題だったので、
+                    elif ("BL-study" in title or "BL study" in title): を追加
 

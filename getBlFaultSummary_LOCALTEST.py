@@ -60,10 +60,11 @@ try:
     excelapp.Visible = 1                                            #Excelウインドウを表示する
     excelapp.Workbooks.Open(r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
     excelapp.Application.Run('Module3.cp_paste_faulttxt_UNTENZYOKYOSYUKEI')                       #標準モジュールModule1のマクロtest1を実行する
-    excelapp.Workbooks(1).Close(SaveChanges=False)                  
-    excelapp.Application.Quit()                                     #Excelを閉じる
+#    excelapp.Workbooks(1).Close(SaveChanges=False)                  
+#    excelapp.Application.Quit()                                     #Excelを閉じる
 finally:
-    excelapp.Application.Quit()  
+    pass
+#    excelapp.Application.Quit()  
 
 
 

@@ -8,3 +8,5 @@ dt_beg.txt
 *利用時間のtmp.xlsx
 Diff/
 __pycache__/
+test.py
+SACLA運転集計記録Test.xlsm
