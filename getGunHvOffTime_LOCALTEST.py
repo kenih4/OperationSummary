@@ -42,8 +42,7 @@ if ret == 0:
 #            excelapp.Application.Quit()                                     #Excelを閉じる
         finally:
             pass
-#            excelapp.Application.Quit()  
-
+#            excelapp.Application.Quit()
     else:
         print(f"異常：作成されたはずの計画時間.xlsxのタイムスタンプが古いです。 最終更新時刻: {datetime.datetime.fromtimestamp(os.path.getmtime(schedule.計画時間ファイル))}")
 

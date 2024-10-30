@@ -5,7 +5,7 @@
 
 
 やり方：
-0:  BL2 or BL3が先に終了した場合など、SACLA運転集計記録.xlsmのシート「停止時間」のBL列にあらかじめ入力する
+0:  両BLともユーザー運転で、BL2 or BL3が先に終了した場合、SACLA運転集計記録.xlsmのシート「停止時間」のBL列にあらかじめ入力する
 
 1.  python getGunHvOffTime_LOCALTEST.py
     を実行すると\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\計画時間.xlsxを基に計画時間.xlsxを作成している
