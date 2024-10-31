@@ -136,7 +136,7 @@ def get_user_list(bl_num):
         if bl_num == 0:
             dict = {"運転種別":"施設調整", "start":list_schedules[i]['start'],"end":list_schedules[i]['end'],"備考":title}
             user_list.append(dict)
-        elif ("BL-study" in title or "BL study" in title):
+        elif ("BL-study" in title or "BL study" in title): #2024/10/18追加　　こんなのがあり、Gがあるせいでユーザー運転と認識されてしまっていたため。「BL-study 10keV/30Hz（富樫、FROG）」
             pass
         elif "FCBT" in title or "G" in title:
             if "FCBT" in title:

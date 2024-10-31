@@ -16,9 +16,8 @@
     続いて、またマクロでBL2もする
 
 2.  python getBlFaultSummary_LOCALTEST.py
-    マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_faulttxt_UNTENZYOKYOSYUKEI()」を実行する
-
-    希望python getBlFaultSummary_LOCALTEST.pyでBL3をしたらマクロでBL3になるようにしたい
+    マクロいろいろ.xlsmが立ち上がるので、リボンからマクロ「cp_paste_faulttxt_UNTENZYOKYOSYUKEI(BL)」を実行する
+    ※このマクロ、引数を取るようにした為、エクセルの開発->マクロからは見えない。Module3をクリックすると見える。
 
 3.  SACLA運転状況集計BL*.xlsmの利用時間(User)シートにエネルギーなどを手動入力
     http://saclaopr19.spring8.or.jp/~summary/display_ui.html?sort=date%20desc%2Cstart%20desc&limit=0%2C100&search_situation=ユーザー運転&&search_root=BL3#STATUS
