@@ -9,9 +9,13 @@ import sys
 import os
 
 
-
-
-bl = input(">BLを選択してください。(bl1,bl2,bl3) デフォルト bl3 >>> ")
+#---------------------
+args = sys.argv
+print(args[0])
+print(args[1])
+#---------------------
+bl = args[1]
+#bl = input(">BLを選択してください。(bl1,bl2,bl3) デフォルト bl3 >>> ")
 if bl=="":
     bl="bl3"
 
@@ -30,7 +34,7 @@ list = BlFaultSummary.get_unit_list(bl,fault_list)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 with open("dt_beg.txt", mode='r', encoding="UTF-8") as f:
     buff_dt_beg = f.read()
-print ("「fault.txt」の中身を以下の指定された範囲で切り抜いてクリップボードへコピーします。")
+print (bl+" 「fault.txt」の中身を以下の指定された範囲で切り抜いてクリップボードへコピーします。")
 val = input("開始日時を入力してください。(例)2021/11/1 10:00  デフォルトは「" + str(buff_dt_beg) + "」    >>>")
 if not val:
     dt_beg = datetime.datetime.strptime(buff_dt_beg, "%Y/%m/%d %H:%M")
@@ -54,13 +58,14 @@ if val:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 BlFaultSummary.output_log_txt_Time_Specification(list,dt_beg,dt_end)
 
-input("正常終了:マクロいろいろ.xlsmが立ち上がるので、マクロ「cp_paste_faulttxt_UNTENZYOKYOSYUKEI()」が実行されます。 Press Enter to continue...")
+input("正常終了:マクロいろいろ.xlsmにある、マクロ「cp_paste_faulttxt_UNTENZYOKYOSYUKEI()」が実行されます。\nEnter押すとマクロが実行されるのですが、最前面にでないのでエクセルを手前にして見てください。\nPress Enter to continue...")
 import win32com.client                                          #Win32comモジュールを呼び出す
 try:
     print ("bl = ",bl.replace("bl", ""))
     excelapp = win32com.client.Dispatch('Excel.Application')        #Excelアプリケーションを起動する
     excelapp.Visible = 1                                            #Excelウインドウを表示する
-    excelapp.Workbooks.Open(r"C:\Users\kenichi\Documents\OperationSummary\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
+#    excelapp.Workbooks.Open(r"C:\Users\kenichi\Dropbox\gitdir\VBA運転集計用\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
+    excelapp.Workbooks.Open(r"C:\me\tmp\VBA運転集計用\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
     excelapp.Application.Run('Module3.cp_paste_faulttxt_UNTENZYOKYOSYUKEI',bl.replace("bl", ""))                       #標準モジュールModule1のマクロtest1を実行する
 #    excelapp.Workbooks(1).Close(SaveChanges=False)                  
 #    excelapp.Application.Quit()                                     #Excelを閉じる
