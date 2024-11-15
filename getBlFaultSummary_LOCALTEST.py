@@ -64,8 +64,7 @@ try:
     print ("bl = ",bl.replace("bl", ""))
     excelapp = win32com.client.Dispatch('Excel.Application')        #Excelアプリケーションを起動する
     excelapp.Visible = 1                                            #Excelウインドウを表示する
-    excelapp.Workbooks.Open(r"C:\Users\kenichi\Dropbox\gitdir\VBA運転集計用\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
-#    excelapp.Workbooks.Open(r"C:\me\tmp\VBA運転集計用\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
+    excelapp.Workbooks.Open(r"C:\me\unten\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
     excelapp.Application.Run('Module3.cp_paste_faulttxt_UNTENZYOKYOSYUKEI',bl.replace("bl", ""))                       #標準モジュールModule1のマクロtest1を実行する
 #    excelapp.Workbooks(1).Close(SaveChanges=False)                  
 #    excelapp.Application.Quit()                                     #Excelを閉じる

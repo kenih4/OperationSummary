@@ -31,8 +31,6 @@ if ret == 0:
     
     if abs(time.time() - os.path.getmtime(schedule.計画時間ファイル))<10:
         input("正常終了:計画時間.xlsxを開きます。手動で修正する必要がある場合は、修正してからマクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」を実行しましょう。\n手動で修正する必要がある例は、FCBTがある時や、BL-studyが紛れ込んでる時などです。\nEnter押すと計画時間.xlsxを開きますが、開かれてもしばらくの間、ぐるぐるしてます。\nPress Enter to continue...")
-#        print("正常終了:マクロいろいろ.xlsmが立ち上がるので、マクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」が実行されます")
-        #subprocess.Popen(['start', r"C:\Users\kenichi\Dropbox\gitdir\VBA運転集計用\マクロいろいろ.xlsm"], shell=True) #マクロが入ってるエクセルファイルを開く
         import win32com.client                                          #Win32comモジュールを呼び出す
         try:
             excelapp = win32com.client.Dispatch('Excel.Application')        #Excelアプリケーションを起動する
