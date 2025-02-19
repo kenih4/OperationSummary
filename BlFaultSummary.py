@@ -108,6 +108,7 @@ def output_log_txt_Time_Specification(list,dt_beg,dt_end):
         sys.exit()
     pyperclip.copy(txt_clibbord)
 #    subprocess.Popen(['start', txt], shell=True)
+    return txt_clibbord.count("\n")
 
 # In[5]:
 

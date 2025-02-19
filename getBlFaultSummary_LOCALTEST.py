@@ -56,7 +56,8 @@ if val:
         print ("エラー：日時のフォーマットが正しくありません。")
         sys.exit()
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-BlFaultSummary.output_log_txt_Time_Specification(list,dt_beg,dt_end)
+ROW_COUNT = BlFaultSummary.output_log_txt_Time_Specification(list,dt_beg,dt_end)
+print ("fault.txtの中身はの行数 ROW_COUNT = ",ROW_COUNT)
 
 input("正常終了:マクロいろいろ.xlsmにある、マクロ「cp_paste_faulttxt_UNTENZYOKYOSYUKEI()」が実行されます。\nEnter押すとマクロが実行されるのですが、最前面にでないのでエクセルを手前にして見てください。\nPress Enter to continue...")
 import win32com.client                                          #Win32comモジュールを呼び出す
@@ -65,7 +66,7 @@ try:
     excelapp = win32com.client.Dispatch('Excel.Application')        #Excelアプリケーションを起動する
     excelapp.Visible = 1                                            #Excelウインドウを表示する
     excelapp.Workbooks.Open(r"C:\me\unten\マクロいろいろ.xlsm",ReadOnly=True)  #rを追加してパス名をrawデータとして読み込みマクロ有効ブックを開く
-    excelapp.Application.Run('Module3.cp_paste_faulttxt_UNTENZYOKYOSYUKEI',bl.replace("bl", ""))                       #標準モジュールModule1のマクロtest1を実行する
+    excelapp.Application.Run('Module3.cp_paste_faulttxt_UNTENZYOKYOSYUKEI',bl.replace("bl", ""),ROW_COUNT)                       #標準モジュールModule1のマクロtest1を実行する
 #    excelapp.Workbooks(1).Close(SaveChanges=False)                  
 #    excelapp.Application.Quit()                                     #Excelを閉じる
 finally:
