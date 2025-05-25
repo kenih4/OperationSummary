@@ -95,14 +95,23 @@ def output_log_txt(list):
 #ユニットのリストをBL集計用の形式でtxtに出力する  「時間指定する」
 def output_log_txt_Time_Specification(list,dt_beg,dt_end):
     import pyperclip
+    print ("dt_beg = ",dt_beg)
+    print ("dt_end = ",dt_end)
+    print ("len(list) = ",len(list))
+
+    
     txt = 'fault.txt'
     txt_clibbord = ''
     with open(txt,'w', encoding='utf-8') as f:  #なぜか、if dt > dt_beg　の条件をいれると文字化けするので encoding='utf-8'と指定した
         for i in range(len(list)):
-            dt = datetime.datetime.strptime(list[i][2], '%Y/%m/%d %H:%M:%S')
-            if dt > dt_beg and dt < dt_end:
-                f.write( "\t".join(list[i]) + "\n")
-                txt_clibbord += "\t".join(list[i]) + "\n"
+            print("i = ",i,"    list[i][2] = ",list[i][2])
+            try:
+                dt = datetime.datetime.strptime(list[i][2], '%Y/%m/%d %H:%M:%S')
+                if dt > dt_beg and dt < dt_end:
+                    f.write( "\t".join(list[i]) + "\n")
+                    txt_clibbord += "\t".join(list[i]) + "\n"
+            except ValueError:
+                pass
     if txt_clibbord == '':
         print("txt_clibbordが空っぽです。前のステップで、SACLA運転状況集計BL*.xlsmを保存していない可能性があります。次ぎ進んでもしょうがないのでここで終了します。")
         sys.exit()
