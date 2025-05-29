@@ -98,7 +98,6 @@ def output_log_txt_Time_Specification(list,dt_beg,dt_end):
     print ("dt_beg = ",dt_beg)
     print ("dt_end = ",dt_end)
     print ("len(list) = ",len(list))
-
     
     txt = 'fault.txt'
     txt_clibbord = ''

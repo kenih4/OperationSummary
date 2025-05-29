@@ -112,6 +112,7 @@ def get_gun_off_time(sig_res, bit1):
         if (status == "OFF") & (i == (len(sig_res)-1)):
             on_time = date_floor_minute(datetime.datetime.strptime(sig_res[i][0], "%Y/%m/%d %H:%M:%S.%f").replace(microsecond = 0),1)
             dict = {"start":off_time, "end":on_time}
+            print("dict: ", dict)
             list.append(dict)
     return list
 
