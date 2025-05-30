@@ -309,7 +309,11 @@ def output_excel_gun_hvoff_time():
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     with open("dt_beg.txt", mode='r', encoding="UTF-8") as f:
         buff_dt_beg = f.read()
-    val = input("開始日時を入力してください。　(例)2021/11/1 10:00  デフォルトは「" + str(buff_dt_beg) + "」    >>>")
+    with open("dt_end.txt", mode='r', encoding="UTF-8") as f:
+        buff_dt_end = f.read()
+
+        
+    val = input("開始日時を入力してください。(例)2021/11/1 10:00  デフォルトは「" + str(buff_dt_beg) + "」    >>>")
     if not val:
         dt_beg = datetime.datetime.strptime(buff_dt_beg, "%Y/%m/%d %H:%M")
     else:
@@ -321,14 +325,28 @@ def output_excel_gun_hvoff_time():
             print ("エラー：日時のフォーマットが正しくありません。")
             sys.exit()
 
+    
     dt_end = dt_beg +  datetime.timedelta(days=14)
-    val = input("終了日時を入力してください。　(例)2021/11/15 10:00   デフォルトは2週間後「" + str(dt_end) + "」です。    >>>")
-    if val:
+    val = input("終了日時を入力してください。(例)2021/11/15 10:00   デフォルトは「" + str(buff_dt_end) + "」です。    >>>")
+    if not val:
+        dt_end = datetime.datetime.strptime(buff_dt_end, "%Y/%m/%d %H:%M")
+    else:
         try:
             dt_end = datetime.datetime.strptime(val, "%Y/%m/%d %H:%M")
+            with open("dt_end.txt","w") as o:
+                o.write(val)
         except ValueError:
             print ("エラー：日時のフォーマットが正しくありません。")
             sys.exit()
+
+#    dt_end = dt_beg +  datetime.timedelta(days=14)
+#    val = input("終了日時を入力してください。　(例)2021/11/15 10:00   デフォルトは2週間後「" + str(dt_end) + "」です。    >>>")  
+#    if val:
+#        try:
+#           dt_end = datetime.datetime.strptime(val, "%Y/%m/%d %H:%M")
+#        except ValueError:
+#            print ("エラー：日時のフォーマットが正しくありません。")
+#            sys.exit()
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         
