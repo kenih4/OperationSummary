@@ -311,7 +311,6 @@ def output_excel_gun_hvoff_time():
         buff_dt_beg = f.read()
     with open("dt_end.txt", mode='r', encoding="UTF-8") as f:
         buff_dt_end = f.read()
-
         
     val = input("開始日時を入力してください。(例)2021/11/1 10:00  デフォルトは「" + str(buff_dt_beg) + "」    >>>")
     if not val:
