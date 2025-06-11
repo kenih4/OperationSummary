@@ -9,11 +9,16 @@ import sys
 import os
 
 
-#---------------------
+#/追加部分---------------------
 args = sys.argv
 print(args[0])
 print(args[1])
-#---------------------
+if os.path.exists(r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\SACLA\SACLA運転集計記録.xlsm"):
+    print("ファイルにアクセスできます。")
+else:
+    print("ファイルにアクセスできません（存在しないか、ネットワークの問題かも）。")
+    input("続行するには Enter を押してください...")
+#---------------------/
 bl = args[1]
 #bl = input(">BLを選択してください。(bl1,bl2,bl3) デフォルト bl3 >>> ")
 if bl=="":
@@ -28,7 +33,6 @@ fault_list = BlFaultSummary.get_fault_list(acc) #   SACLA運転集計記録.xlsm
 list = BlFaultSummary.get_unit_list(bl,fault_list)
 #libCom.print_list(list)
 #BlFaultSummary.output_log_txt(list)    #MOTO 　時間指定なし
-
 
 #以下のソースを追加 もともとあるBlFaultSummary.output_log_txtを時間指定できるようにした
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

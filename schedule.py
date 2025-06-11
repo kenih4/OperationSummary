@@ -144,10 +144,10 @@ def get_user_list(bl_num):
             elif "G" in title:
                 if title.startswith("G"):
                     title_slist = list_schedules[i]['title'].split()
-                    user = title_slist[0]
+                    user = title_slist[0] #波長の情報が欲しいのでスラッシュ以降だけ削除　list_schedules[i]['title'].split('/')[0]
                 else:
                     title_slist = list_schedules[i]['title'].split('G', 1)
-                    user = title_slist[0] + "G"
+                    user = title_slist[0] + "G" #波長の情報が欲しいのでスラッシュ以降だけ削除　list_schedules[i]['title'].split('/')[0]
             # list = ["ユーザー", list_schedules[i]['start'], list_schedules[i]['end'], user]
             dict = {"運転種別":"ユーザー", "start":list_schedules[i]['start'],"end":list_schedules[i]['end'],"備考":user}
             user_list.append(dict)

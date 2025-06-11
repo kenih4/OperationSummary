@@ -103,10 +103,15 @@ def output_log_txt_Time_Specification(list,dt_beg,dt_end):
     txt_clibbord = ''
     with open(txt,'w', encoding='utf-8') as f:  #なぜか、if dt > dt_beg　の条件をいれると文字化けするので encoding='utf-8'と指定した
         for i in range(len(list)):
-            print("i = ",i,"    list[i][2] = ",list[i][2])
+            print("i = ",i,"    list1 = ",list[i][1],"    2 = ",list[i][2],"    3 = ",list[i][3],"    4 = ",list[i][4])
+            if list[i][1] == "ユーザー運転" and list[i][4] == "0":
+                print("\n<お知らせー!!!!!!!!>\n1シフト(",list[i][2]," ~ ",list[i][3],")だけど、ユーザー運転中に一度もダウンタイムがないですね。ここの上に空行が出力されます。これがないとエクセルで循環参照が発生してしまうためです。\n")
             try:
                 dt = datetime.datetime.strptime(list[i][2], '%Y/%m/%d %H:%M:%S')
                 if dt > dt_beg and dt < dt_end:
+                    if list[i][1] == "ユーザー運転" and list[i][4] == "0":#「ユーザー運転中に一度もダウンタイムがない」事象なので、先に空行を入れる
+                        f.write( "\n")
+                        txt_clibbord += "\n"                    
                     f.write( "\t".join(list[i]) + "\n")
                     txt_clibbord += "\t".join(list[i]) + "\n"
             except ValueError:
