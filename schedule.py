@@ -69,8 +69,8 @@ def read_ical_data(icalData):
                             "updated":e.decoded("dtstamp")
                             }
             list_schedules.append(dict_schedule)
-            #print(dict_schedule)
- 
+            #print(dict_schedule) #　時間のない日付だけのスケジュールについて。 この段階では時間は空欄になってるのでOK  この後ででてくる、date型をdatetime型に変換してタイムゾーンを消す関数tzinfo_delete をすると00:00が入るようだ
+            
     # 予定表Eventを格納したリストを返す
     list_schedules = time_tzinfo_non_(list_schedules)
     return list_schedules
@@ -133,6 +133,7 @@ def get_user_list(bl_num):
     for i in range(len(list_schedules)):                  
         user = ""
         title = list_schedules[i]['title']
+        print("list_schedules[i]['start']   =  ",list_schedules[i]['start'])
         if bl_num == 0:
             dict = {"運転種別":"施設調整", "start":list_schedules[i]['start'],"end":list_schedules[i]['end'],"備考":title}
             user_list.append(dict)
@@ -198,6 +199,9 @@ def write_excel_planned_time_bl(bl_num, dt_beg, dt_end):
     list = get_list_period_start_time(get_user_list(bl_num), dt_beg, dt_end)
     #list = list.append(get_facility_list())
     list = sorted(list, key=lambda s: s['start'])
+    print("/運転種別': 'ユーザー'しか出てこないのはなぜ？~~~~~~~~~~~~~~~~~~~~",bl_num, "~~~~~~~~~~~~~~~~~~~~")
+    print(list)
+    print("~~~~~~~~~~~~~~~~~~~~",bl_num, "~~~~~~~~~~~~~~~~~~~~/")
 
     if bl_num != 1:
         list.extend(get_list_period_start_time(get_user_list(0), dt_beg, dt_end))
@@ -231,6 +235,7 @@ def write_excel_planned_time_sheet(list, sheet_name):
         ws.cell(i+2,2,value = list[i]['start'])
         ws.cell(i+2,3,value = list[i]['end'])
         ws.cell(i+2,4,value = list[i]['備考'])
+        print("def write_excel_planned_time_sheet   ", i,":      ", list[i]['運転種別'], list[i]['start'].strftime("%Y/%m/%d %H:%M"), list[i]['end'].strftime("%Y/%m/%d %H:%M"), list[i]['備考']    )
     auto_sheet_width(ws)
     ws.title = sheet_name    
     wb.save(計画時間ファイル)

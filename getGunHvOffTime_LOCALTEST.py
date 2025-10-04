@@ -28,6 +28,7 @@ import GunHvOff
 ret = GunHvOff.output_excel_gun_hvoff_time()
 if ret == 0:
 #    print("正常終了しました")
+#    time.sleep(60)
     
     if abs(time.time() - os.path.getmtime(schedule.計画時間ファイル))<10:
 #        input("正常終了:計画時間.xlsxを開きます。手動で修正する必要がある場合は、修正してからマクロ「cp_paste_KEIKAKUZIKAN_UNTENZYOKYOSYUKEI()」を実行しましょう。\n手動で修正する必要がある例は、FCBTがある時や、BL-studyが紛れ込んでる時などです。\nEnter押すと計画時間.xlsxを開きますが、最前面にでてこないのです。。。\nPress Enter to continue...")
