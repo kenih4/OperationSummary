@@ -211,7 +211,7 @@ def write_excel_planned_time_bl(bl_num, dt_beg, dt_end):
     
     #print("/結果出力   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     #pprint(list, width=200, compact=True)
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/")
+    print("BL: ",bl_num,"   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/")
     sheet_name = "bl" + str(bl_num)
     write_excel_planned_time_sheet(list, sheet_name)
 

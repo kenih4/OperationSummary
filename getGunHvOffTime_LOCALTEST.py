@@ -21,8 +21,13 @@ import schedule
 import GunHvOff
 
 
-
-
+#/追加部分---------------------
+if os.path.exists(schedule.計画時間ファイル):
+    print("ファイル[schedule.計画時間ファイル]にアクセスOK!!")
+else:
+    input("ファイル[schedule.計画時間ファイル]にアクセスできません（存在しないか、ネットワークの問題かも）。このファイルがない正常に進めませんので、終了します")
+    sys.exit()
+#---------------------/
 
 
 ret = GunHvOff.output_excel_gun_hvoff_time()

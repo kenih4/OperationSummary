@@ -13,7 +13,7 @@ import os
 args = sys.argv
 print(args[0])
 print(args[1])
-if os.path.exists(r"\\saclaopr18.spring8.or.jp\common\運転状況集計\最新\SACLA\SACLA運転集計記録.xlsm"):
+if os.path.exists(schedule.SACLA集計ファイル):
     print("ファイル[SACLA運転集計記録.xlsm]にアクセスOK!!")
 else:
     input("ファイル[SACLA運転集計記録.xlsm]にアクセスできません（存在しないか、ネットワークの問題かも）。終了します")
