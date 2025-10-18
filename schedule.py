@@ -199,18 +199,18 @@ def write_excel_planned_time_bl(bl_num, dt_beg, dt_end):
     list = get_list_period_start_time(get_user_list(bl_num), dt_beg, dt_end)
     #list = list.append(get_facility_list())
     list = sorted(list, key=lambda s: s['start'])
-    print("/運転種別': 'まずはユーザーだけ出力   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    pprint(list, width=200, compact=True)
+    #print("/運転種別': 'まずはユーザーだけ出力   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    #pprint(list, width=200, compact=True)
 
     if bl_num != 1: # BL2, BL3の場合、施設調整時間を追加
         list.extend(get_list_period_start_time(get_user_list(0), dt_beg, dt_end))
         list = sorted(list, key=lambda s: s['start'])
-        print("/運転種別': '施設調整を追加   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        pprint(list, width=200, compact=True)
+        #print("/運転種別': '施設調整を追加   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        #pprint(list, width=200, compact=True)
         list = compensate_tuning_time(list, dt_beg, dt_end) #ユーザー時間の間を利用調整で埋めたリストを返す
     
-    print("/結果出力   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    pprint(list, width=200, compact=True)
+    #print("/結果出力   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    #pprint(list, width=200, compact=True)
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/")
     sheet_name = "bl" + str(bl_num)
     write_excel_planned_time_sheet(list, sheet_name)
@@ -239,7 +239,7 @@ def write_excel_planned_time_sheet(list, sheet_name):
         ws.cell(i+2,2,value = list[i]['start'])
         ws.cell(i+2,3,value = list[i]['end'])
         ws.cell(i+2,4,value = list[i]['備考'])
-        print("def write_excel_planned_time_sheet   ", i,":      ", list[i]['運転種別'], list[i]['start'].strftime("%Y/%m/%d %H:%M"), list[i]['end'].strftime("%Y/%m/%d %H:%M"), list[i]['備考']    )
+        #print("def write_excel_planned_time_sheet   ", i,":      ", list[i]['運転種別'], list[i]['start'].strftime("%Y/%m/%d %H:%M"), list[i]['end'].strftime("%Y/%m/%d %H:%M"), list[i]['備考']    )
     auto_sheet_width(ws)
     ws.title = sheet_name    
     wb.save(計画時間ファイル)
@@ -430,12 +430,16 @@ def read_xcel_fault_time(acc, sheet):#acc 1:SCSS, Other:SACLA
 #開始時間が時間範囲内を抽出したリストを返す
 def get_list_period_start_time(list, dt_beg, dt_end):
     list_tmp = []
-    print("DEBUG: get_list_period_start_time^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-    pprint(list, width=200, compact=True)
-    print("DEBUG: get_list_period_start_time^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
     for i in range(len(list)):       
         if list[i]['start'] >= dt_beg and list[i]['start'] < dt_end:
             list_tmp.append(list[i])
+        # 警告表示: ユニットの開始時刻または終了時刻を跨いでいる場合
+        if (list[i]['end'] - dt_beg)>datetime.timedelta(0) and (list[i]['start'] - dt_beg)<datetime.timedelta(0) :
+            print("\n！！！WARNING@get_list_period_start_time  ユニットの開始時刻を跨いでます！！！start:", list[i]['start'], "  end:", list[i]['end'], "  備考:", list[i]['備考'], "  運転種別:", list[i]['運転種別'])
+            input("要確認です。Press Enter to continue...")
+        if (list[i]['end'] - dt_end)>datetime.timedelta(0) and (list[i]['start'] - dt_end)<datetime.timedelta(0) :
+            print("\n！！！WARNING@get_list_period_start_time  ユニットの終了時刻を跨いでます！！！start:", list[i]['start'], "  end:", list[i]['end'], "  備考:", list[i]['備考'], "  運転種別:", list[i]['運転種別'])
+            input("要確認です。Press Enter to continue...")
     return list_tmp
 
 
