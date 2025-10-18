@@ -117,7 +117,7 @@ def output_log_txt_Time_Specification(list,dt_beg,dt_end):
             except ValueError:
                 pass
     if txt_clibbord == '':
-        input("txt_clibbordが空っぽです!!!!!!!!!!!!\n一つ前のステップ(計画時間.xlsxをコピーして貼り付ける操作)をしましたか???\nSACLA運転状況集計BL*.xlsmを保存していない可能性もあります。\n次ぎ進んでもしょうがないのでここで終了します。")
+        input("txt_clibbordが空っぽです!!!!!!!!!!!!\n一つ前のステップ(計画時間.xlsxをコピーして貼り付ける操作)をしましたか???\nSACLA運転状況集計BL*.xlsmを保存していない可能性もあります。\nユーザー運転がなかっただけかな？？\n次ぎ進んでもしょうがないのでここで終了します。")
         sys.exit()
     pyperclip.copy(txt_clibbord)
 #    subprocess.Popen(['start', txt], shell=True)
