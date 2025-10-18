@@ -24,7 +24,7 @@ import openpyxl
 import subprocess
 import copy
 from operator import itemgetter
-
+from pprint import pprint
 
 # In[2]:
 
@@ -121,7 +121,7 @@ def get_user_list(bl_num):
         url = "http://calsrv01.spring8.or.jp/davical/public.php/plan/BL3?ticket=oGtBR6Qy"
     elif bl_num == 1:
         url = "http://calsrv01.spring8.or.jp/davical/public.php/plan/BL1?ticket=4BY9wtIG"
-    elif bl_num == 0:
+    elif bl_num == 0: #施設調整
         url = "http://calsrv01.spring8.or.jp/davical/public.php/plan/tuning?ticket=sLLBQudt"
     else:
         return -1
@@ -133,7 +133,7 @@ def get_user_list(bl_num):
     for i in range(len(list_schedules)):                  
         user = ""
         title = list_schedules[i]['title']
-        print("list_schedules[i]['start']   =  ",list_schedules[i]['start'])
+        #print("BL:",bl_num,"   list_schedules[",i,"]['start']   =  ",list_schedules[i]['start'])
         if bl_num == 0:
             dict = {"運転種別":"施設調整", "start":list_schedules[i]['start'],"end":list_schedules[i]['end'],"備考":title}
             user_list.append(dict)
@@ -199,15 +199,19 @@ def write_excel_planned_time_bl(bl_num, dt_beg, dt_end):
     list = get_list_period_start_time(get_user_list(bl_num), dt_beg, dt_end)
     #list = list.append(get_facility_list())
     list = sorted(list, key=lambda s: s['start'])
-    print("/運転種別': 'ユーザー'しか出てこないのはなぜ？~~~~~~~~~~~~~~~~~~~~",bl_num, "~~~~~~~~~~~~~~~~~~~~")
-    print(list)
-    print("~~~~~~~~~~~~~~~~~~~~",bl_num, "~~~~~~~~~~~~~~~~~~~~/")
+    print("/運転種別': 'まずはユーザーだけ出力   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    pprint(list, width=200, compact=True)
 
-    if bl_num != 1:
+    if bl_num != 1: # BL2, BL3の場合、施設調整時間を追加
         list.extend(get_list_period_start_time(get_user_list(0), dt_beg, dt_end))
         list = sorted(list, key=lambda s: s['start'])
-        list = compensate_tuning_time(list, dt_beg, dt_end)
+        print("/運転種別': '施設調整を追加   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        pprint(list, width=200, compact=True)
+        list = compensate_tuning_time(list, dt_beg, dt_end) #ユーザー時間の間を利用調整で埋めたリストを返す
     
+    print("/結果出力   BL:",bl_num, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    pprint(list, width=200, compact=True)
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/")
     sheet_name = "bl" + str(bl_num)
     write_excel_planned_time_sheet(list, sheet_name)
 
@@ -426,7 +430,9 @@ def read_xcel_fault_time(acc, sheet):#acc 1:SCSS, Other:SACLA
 #開始時間が時間範囲内を抽出したリストを返す
 def get_list_period_start_time(list, dt_beg, dt_end):
     list_tmp = []
-        
+    print("DEBUG: get_list_period_start_time^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    pprint(list, width=200, compact=True)
+    print("DEBUG: get_list_period_start_time^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
     for i in range(len(list)):       
         if list[i]['start'] >= dt_beg and list[i]['start'] < dt_end:
             list_tmp.append(list[i])
