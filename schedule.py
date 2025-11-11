@@ -438,7 +438,7 @@ def get_list_period_start_time(list, dt_beg, dt_end):
             print("\n！！！WARNING@get_list_period_start_time  ユニットの開始時刻を跨いでます！！！start:", list[i]['start'], "  end:", list[i]['end'], "  備考:", list[i]['備考'], "  運転種別:", list[i]['運転種別'])
             input("要確認です。Press Enter to continue...")
         if (list[i]['end'] - dt_end)>datetime.timedelta(0) and (list[i]['start'] - dt_end)<datetime.timedelta(0) :
-            print("\n！！！WARNING@get_list_period_start_time  ユニットの終了時刻を跨いでます！！！start:", list[i]['start'], "  end:", list[i]['end'], "  備考:", list[i]['備考'], "  運転種別:", list[i]['運転種別'])
+            print("\n！！！WARNING@get_list_period_start_time  ユニットの終了時刻を跨いでます！！！start:", list[i]['start'], "  end:", list[i]['end'], "  備考:", list[i]['備考'], "  運転種別:", list[i]['運転種別'])           
             input("要確認です。Press Enter to continue...")
     return list_tmp
 
