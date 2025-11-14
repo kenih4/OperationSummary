@@ -1,6 +1,6 @@
 .ipynb_checkpoints/
 Bk/
-_SCSS_計画時間 .xlsx
+*.xlsx
 *.docx
 log*
 *.txt
